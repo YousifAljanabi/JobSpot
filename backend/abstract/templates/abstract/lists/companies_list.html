@@ -1,0 +1,35 @@
+{% for c in companies %}
+          <div class="py-6 px-3">
+      <div class="grid grid-cols-8 gap-4">
+        <div>
+          <img
+            src="{{ c.avatar_url }}"
+            alt=""
+            style="height: 32px; width: 32px"
+          />
+        </div>
+        <div class="col-span-7">
+          <a href="{% url 'home:profile' c.id %}">
+            <h1 class="text-md font-bold">
+                {{ c.contact_name }}
+            </h1>
+          </a>
+          <div class="flex justify-between">
+            <div>
+              <p class="mb-3 text-sm inline">{{ c.province }}</p>
+              <p class="mb-3 text-sm inline">•</p>
+              <p class="mb-3 text-sm inline">{{ c.contact_name}}</p>
+            </div>
+
+          </div>
+          <p class="text-sm text-[#8083A3] py-2">
+              {{c.about|slice:":100"}}
+          </p>
+          <ul class="text-sm font-bold text-[#8083A3] py-3">
+            <li class="inline px-6">{{ job.industry }}</li>
+            <li class="inline px-6">{{ job.employment_type }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+      {% endfor %}

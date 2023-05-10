@@ -1,0 +1,58 @@
+{% extends 'abstract/_base.html' %} {% load static %} {% block body %}
+<div class="flex flex-wrap justify-center px-60 py-8">
+
+{% include 'abstract/components/search_form.html' %}
+  <div class="w-full px-72 py-6 text-center">
+    <ul class="font-bold text-xs">
+        <li class="inline px-8">
+            <a href="">
+                Date Posted
+            </a>
+        </li>
+
+      <li class="inline px-8">
+            <a href="">
+                Experience
+            </a>
+        </li>
+      <li class="inline px-8">
+            <a href="">
+                Company
+            </a>
+        </li>
+      <li class="inline px-8">
+            <a href="">
+                Job Type
+            </a>
+        </li>
+    </ul>
+  </div>
+  {% if jobs %}
+      <div class="px-36">
+      <h1 class="font-bold text-2xl">Jobs: </h1>
+    {% include 'abstract/lists/jobs_list.html' with jobs=jobs%}
+
+  </div>
+{% endif %}
+    {% if companies %}
+        <div class="px-36">
+        <h1 class="font-bold text-2xl">Companies: </h1>
+    {% include 'abstract/lists/companies_list.html' with companies=companies%}
+
+  </div>
+{% endif %}
+    {% if employees %}
+        <div class="px-36">
+        <h1 class="font-bold text-2xl">Users: </h1>
+    {% include 'abstract/lists/employees_list.html' with employees=employees%}
+
+{% endif %}
+{% if no_results %}
+    <div class="px-36">
+        <h1 class="font-bold text-2xl">No Result Found</h1>
+    </div>
+{% endif %}
+  </div>
+
+</div>
+{% endblock body %}

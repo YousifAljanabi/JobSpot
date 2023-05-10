@@ -1,0 +1,64 @@
+{% extends 'abstract/_base.html' %}
+{%load static %} {% block body %}
+
+
+  <div class="col-span-4">
+
+
+    <div class="px-36">
+
+
+      <div class="w-full px-60 pt-6 pb-6 text-center">
+        <ul class="font-bold text-xs">
+          <a href="">
+            <li class="inline px-8">Date Posted</li>
+          </a>
+          <a href="">
+            <li class="inline px-8">Experience</li>
+          </a>
+          <a href="">
+            <li class="inline px-8">Company</li>
+          </a>
+          <a href="">
+            <li class="inline px-8">Job Type</li>
+          </a>
+        </ul>
+      </div>
+      {% for a in applicants %}
+      <div class="pl-12 pr-24 py-6">
+        <div class="grid grid-cols-12 gap-4">
+          <div>
+            <img src="{% static 'images/48x48.png' %}" alt="" />
+          </div>
+          <div class="col-span-11">
+            <div class="flex justify-between items-center">
+              <div>
+{#                <a href="{% url 'user_profile' user.id %}">#}
+                  <h1 class="text-md font-bold">{{a.contact_name}}</h1>
+                </a>
+                <p class="mb-3 text-sm inline">{{ a.province }}</p>
+                <p class="mb-3 text-sm inline">•</p>
+                <p class="mb-3 text-sm inline">{{ a.title}} </p>
+              </div>
+              <div>
+                <h4 class="text-sm">{{ a.company|default:"Unemployed"}}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      
+      <div class="flex justify-center">
+        <ul class="inline-flex space-x-2 pt-8">
+            <li><button class="w-10 h-10 transition-colors duration-150 ">1</button></li>
+            <li><button class="w-10 h-10 text-white transition-colors duration-150 bg-[#1DA1F2] border border-r-0 border-[#1DA1F2] rounded-full focus:shadow-outline">2</button></li>
+            <li><button class="w-10 h-10 transition-colors duration-150 ">3</button></li>
+            <li><button class="w-10 h-10 transition-colors duration-150 ">4</button></li>
+            <li><button class="w-10 h-10 transition-colors duration-150 ">5</button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+{% endblock body %}

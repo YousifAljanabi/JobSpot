@@ -1,0 +1,37 @@
+{% for job in jobs %}
+          <div class="py-6 px-3">
+      <div class="grid grid-cols-8 gap-4">
+        <div>
+          <img
+            src="{{ job.company.avatar_url }}"
+            alt=""
+            style="height: 32px; width: 32px"
+          />
+        </div>
+        <div class="col-span-7">
+          <a href="{% url 'jobs:view_job' job.id %}">
+            <h1 class="text-md font-bold">
+                {{ job.title }}
+            </h1>
+          </a>
+          <div class="flex justify-between">
+            <div>
+              <p class="mb-3 text-sm inline">{{ job.company.province }}</p>
+              <p class="mb-3 text-sm inline">•</p>
+              <p class="mb-3 text-sm inline">{{ job.company.contact_name }}</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-sm">{{job.salary}}</h4>
+            </div>
+          </div>
+          <p class="text-sm text-[#8083A3] py-2">
+              {{job.about|slice:":100"}}
+          </p>
+          <ul class="text-sm font-bold text-[#8083A3] py-3">
+            <li class="inline px-6">{{ job.industry }}</li>
+            <li class="inline px-6">{{ job.employment_type }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+      {% endfor %}

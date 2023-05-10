@@ -1,0 +1,117 @@
+{% load tailwind_tags %} {% load static %} {% load heroicons %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}JobSpot{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.2/tailwind.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    {% block link %}{% endblock link %} {% block script %}{% endblock %} {% tailwind_css %}
+  </head>
+  <body class="font-inter">
+    <nav class="bg-white border-gray-200">
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <a href="{% url 'home:index' %}" class="flex items-center">
+        <img src="{% static '/img/logo.png' %}" class="h-8 mr-3" alt="JobSpot Logo" />
+        <span class="self-center text-2xl font-bold whitespace-nowrap">JobSpot</span>
+    </a>
+    <div class=" w-full md:block md:w-auto">
+      <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
+        <li>
+          <a href="{% url 'home:index' %}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0">Home</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Find Jobs</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Jobs List</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Contact</a>
+        </li>
+      </ul>
+    </div>
+      <div class=" w-full md:block md:w-auto">
+      <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
+        {% if user.is_authenticated %}
+    <li>
+          <a href="{% url 'home:profile' user_id=user.id %}" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">{{ user.email }}</a>
+        </li>
+          <li>
+          <a href="{% url 'contact:logout' %}" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Sign out</a>
+        </li>
+      {% else %}
+        <li>
+          <a href="{% url 'contact:login' %}" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Login</a>
+        </li>
+          <li>
+          <a href="{% url 'contact:signup_type_select' %}" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Signup</a>
+        </li>
+      {% endif %}
+
+      </ul>
+    </div>
+  </div>
+</nav>
+    {% block body %} {% endblock body %} {% block footer %}
+    <footer
+      class="p-4 bg-white rounded-lg shadow md:flex md:items-center md:justify-between md:p-6 text-[#8083A3]"
+    >
+      <div class="hidden w-full md:flex justify-between md:w-screen px-36">
+        <ul
+          class="flex flex-col p-4 mt-4 font-bold rounded-lg border border-gray-100 md:flex-row md:space-x-8 text-xs"
+        >
+          <li>
+            <a
+              href="#"
+              class="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0"
+              aria-current="page"
+            >
+              Privacy Policy
+            </a>
+          </li>
+          <li>
+            <a href="#" class="block py-2 pr-4 pl-3 rounded md:border-0 md:p-0">
+              License
+            </a>
+          </li>
+          <li>
+            <a href="#" class="block py-2 pr-4 pl-3 rounded md:border-0 md:p-0">
+              API
+            </a>
+          </li>
+          <li>
+            <span class="text-xs sm:text-center ">
+              © 2022
+              <a href="{% url 'home:index' %}" class="hover:underline">
+                Jobspot™
+              </a>
+              . All Rights Reserved.
+            </span>
+          </li>
+        </ul>
+        <ul
+          class="flex flex-col font-inter p-4 mt-4 text-black font-bold rounded-lg border border-gray-100 md:flex-row md:space-x-8 text-xs"
+        >
+
+{#          <li>#}
+{#            <a href="#" class="block py-2 pr-4 pl-3 rounded md:border-0 md:p-0">#}
+{#              English#}
+{#            </a>#}
+{#          </li>#}
+        </ul>
+      </div>
+    </footer>
+    {% endblock footer %}
+  </body>
+</html>

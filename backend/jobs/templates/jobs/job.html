@@ -1,0 +1,161 @@
+{% extends 'abstract/_base.html' %} {% load static %} {% load heroicons %}
+{%block body %}
+
+<div class="container flex flex-wrap justify-center px-60 py-8">
+  <div class="relative mx-auto">
+    <img src="{% static 'img/bg.png' %}" alt="" />
+    <img
+      src="{{job.company.avatar_url}}"
+      alt=""
+      class="absolute top-36 left-16"
+      style="width: 118px; height: 118px"
+    />
+  </div>
+</div>
+<div class="container flex flex-wrap px-80 py-8">
+  <div class="container flex flex-wrap px-8">
+    <p class="flex font-bold font-inter text-2xl w-full">{{job.title}}</p>
+    <p class="text-base w-full">
+      {{job.company.contact_name}}.
+    </p>
+    <div class="flex justify-between w-full items-center">
+      <div>
+        <p class="py-2 text-[#8083A3] text-sm">
+            {{ company.province}} ● {{ job.created_at }}
+        </p>
+      </div>
+      <div class="py-2">
+        <a href="{% url 'jobs:save_job' job.id %}" class="text-sm font-bold font-inter px-5">
+          {% heroicon_outline "bookmark" class="h-5 w-5 inline" %}
+          {% if request.user in job.saved.all %}
+            Saved
+            {% else %}
+            Save
+            {% endif %}
+        </a>
+        {% if request.user == job.company %}
+            <a
+{#          href="{% url 'applicants' job.id %}"#}
+          type="submit"
+          class="inline font-medium rounded-3xl text-sm px-12 py-3 text-center bg-[#1DA1F2] text-white"
+        >
+          Applicants
+        </a>
+        {% else %}
+            <a
+          href="{% url 'jobs:apply_job' job.id %}"
+          type="submit"
+          class="inline font-medium rounded-3xl text-sm px-12 py-3 text-center bg-[#1DA1F2] text-white"
+        >
+                {% if request.user in job.applicants.all %}
+                    Unapply
+                {% else %}
+                    Apply
+                {% endif %}
+
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container px-80 py-8">
+  <div class="grid grid-cols-2 gap-4 px-8">
+    <div class="w-full">
+      <div>
+        <h1 class="font-bold text-xl">About the job</h1>
+        <p class="text-sm py-2">{{job.about}}</p>
+      </div>
+      <div>
+        <h1 class="font-bold text-xl">Responsibilities:</h1>
+        <p class="text-sm py-2">{{job.responsibilities}}</p>
+      </div>
+      <div>
+        <h1 class="font-bold text-xl">Skills:</h1>
+        <ul
+          class="grid grid-cols-3 gap-4 text-[#8083A3] text-center font-bold py-3"
+        >
+          <li class="inline">Business</li>
+          <li class="inline">Marketing</li>
+          <li class="inline">Development</li>
+        </ul>
+      </div>
+    </div>
+    <div class="h-full w-full">
+      <div class="px-24">
+        <h1 class="font-bold text-xl">{{ job.salary }}</h1>
+        <p class="text-sm py-2">Avg. salary</p>
+        <ul>
+          <li class="py-3 pl-3">
+            <h2 class="text-sm font-bold">{{ job.industry }}</h2>
+            <h3 class="text-xs text-[#8083A3]">Industry</h3>
+          </li>
+          <li class="py-3 pl-3">
+            <h2 class="text-sm font-bold">{{ job.employment_type }}</h2>
+            <h3 class="text-xs text-[#8083A3]">Employment Type</h3>
+          </li>
+
+          <li class="py-3 pl-3">
+            <h2 class="text-sm font-bold">{{ company.email }}</h2>
+            <h3 class="text-xs text-[#8083A3]">Contact Email</h3>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+  <div class="grid grid-cols-2 gap-4 px-8 py-8">
+    <div class="w-full">
+      <h1 class="text-xl font-bold w-full">About company</h1>
+      <div class="grid grid-cols-2 gap-4 inline">
+        <img
+          src="{{ company.avatar_url }}"
+          alt=""
+          class="inline w-12 h-12 rounded-full"
+        />
+        <div>
+          <div class="align-middle py-6">
+            <h2 class="w-full font-bold text-sm">{{ company.contact_name }}</h2>
+            <p class="text-[#8083A3] text-xs">14,056,752 followers</p>
+          </div>
+        </div>
+      </div>
+      <p class="text-sm">
+        All qualified applicants will receive consideration for employment
+        without regard to age, ancestry, color, family or medical care leave,
+        gender identity or expression, genetic information, marital status,
+        medical condition.
+      </p>
+
+
+    </div>
+    <div class="h-full w-full">
+      <div class="px-24">
+        <h1 class="font-bold text-xl">Latest jobs</h1>
+        <p class="text-sm py-2">{{ company.company_jobs.count }} job(s)</p>
+        <ul>
+
+          {% for job in company.company_jobs.all %}
+              <li class="py-3 pl-3">
+            <h2 class="text-sm font-bold">{{ job.title}}</h2>
+            <div class="text-sm text-[#8083A3] inline">
+              <img
+                src="{{ company.avatar_url }}"
+                alt=""
+                class="inline"
+                style="width: 16px; height: 16px;"
+              />
+              <p class="inline">{{ job.company.contact_name }}</p>
+              <p class="inline">• {{ job.company.province }}</p>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+        <a href="{% url 'jobs:jobs_list' company.id %}" class="flex justify-center py-6 font-bold"
+          >See all jobs from {{ company.contact_name }}</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}

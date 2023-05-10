@@ -1,0 +1,224 @@
+{% extends 'abstract/_base.html' %}
+{% load static %}
+{% block navbar %}{% endblock navbar %}
+{%load static %}
+{% block body %}
+  <div class="col-span-4">
+    <div class="pt-6 px-36 pb-12">
+      <ul class="flex justify-between items-center">
+        <li class="inline">
+          <a href="">
+            <h1 class="font-bold text-sm inline">Back to results</h1>
+          </a>
+        </li>
+        <li class="inline items-center">
+          <button
+            type="submit"
+            class="w-full font-medium rounded-3xl text-sm px-5 py-2.5 text-center bg-[#1DA1F2] text-white"
+          >
+            Post a Job
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="grid grid-cols-10 gap-4 pt-6 px-36 pb-12 items-center">
+      <div>
+        <img src="{{ user.avatar_url }}" alt="" class="shadow rounded-full max-w-full h-auto align-middle border-none" />
+      </div>
+      <div class="col-span-6">
+        <div class="pl-3">
+          <h1 class="font-bold text-2xl">{{user.contact_name}}</h1>
+          <p class="inline">{{ user.company }}</p>
+          <p class="inline"></p>
+          <p class="inline">{{ user.title }}</p>
+        </div>
+      </div>
+        <div class="col-span-3">
+                {% if user != current_user %}
+                    <ul class="flex justify-around font-bold text-sm">
+                  <a href="">
+                    <li class="inline">Save</li>
+                  </a>
+                  <a href="">
+                    <li class="inline">Contact</li>
+                  </a>
+                </ul>
+                {% endif %}
+        </div>
+    </div>
+
+    <div class="px-36">
+      <ul
+        class="flex flex-col p-4 rounded-lg border border-gray-100 md:flex-row md:space-x-4 md:mt-0 md:text-sm md:font-medium md:border-0"
+      >
+        <li class="border border-gray-100 py-3 px-8 rounded-2xl">
+          <a
+            href="#"
+            class="font-bold block py-2 pr-4 pl-3 text-black rounded md:bg-transparent md:p-0"
+            aria-current="page"
+          >
+            About
+          </a>
+        </li>
+        <li class="py-3 px-8 rounded-2xl">
+          <a
+            href="#"
+            class="block py-2 pr-4 pl-3 text-gray-700 rounded md:border-0 md:p-0 dark:text-gray-400"
+          >
+            Work
+          </a>
+        </li>
+        <li class="py-3 px-8 rounded-2xl">
+          <a
+            href="#"
+            class="block py-2 pr-4 pl-3 text-gray-700 rounded md:border-0 md:p-0 dark:text-gray-400"
+          >
+            Experience
+          </a>
+        </li>
+        <li class="py-3 px-8 rounded-2xl">
+          <a
+            href="#"
+            class="block py-2 pr-4 pl-3 text-gray-700 rounded md:border-0 md:p-0 dark:text-gray-400"
+          >
+            Education
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="pl-36 py-12 grid grid-cols-2 gap-4">
+      <div>
+        <div>
+          {% if current_user == user %}
+          <div class="flex justify-between items-center text-center">
+            <h1 class="font-bold text-lg">Short bio</h1>
+            <button class="text-sm" id="edit-button">Edit</button>
+          </div>
+          {% else %}
+          <h1 class="font-bold text-lg">Short bio</h1>
+          {% endif %}
+          <p class="text-sm py-0.5" id="bio">
+            {{ user.bio }}
+          </p>
+          <ul class="text-[#8083A3] text-sm font-bold py-4">
+            {% for skill in skills %}{% endfor %} {% comment "Todo" %}{% endcomment %}
+            <li class="inline px-6 py-1">Business</li>
+            <li class="inline px-6 py-1">Marketing</li>
+            <li class="inline px-6 py-1">Development</li>
+            <li class="inline px-6 py-1">Founder</li>
+            <li class="inline px-6 py-1">HTML</li>
+          </ul>
+        </div>
+
+        <div class="py-6">
+          {% if request.user == user %}
+          <div class="flex justify-between items-center text-center">
+            <h1 class="font-bold text-lg">Work experience</h1>
+            <button class="text-sm"></button>
+          </div>
+          {% else %}
+          <h1 class="font-bold text-lg">Work experience</h1>
+          {% endif %}
+
+        </div>
+
+        {% for e in experiences %}
+            <div class="py-6 px-3">
+          <div class="grid grid-cols-8 gap-4">
+            <div>
+              <img
+                src="{{ e.company.avatar_url }}"
+                alt=""
+                style="height: 32px; width: 32px"
+              />
+            </div>
+            <div class="col-span-7">
+              <a href="">
+                <h1 class="text-md font-bold">
+                    {{ e.job_title }}
+                </h1>
+              </a>
+              <div class="flex justify-between">
+                <div>
+                  <p class="mb-3 text-sm inline">{{ e.location }}</p>
+                  <p class="mb-3 text-sm inline">•</p>
+                  <p class="mb-3 text-sm inline">{{ e.company.contact_name }}</p>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm">{{ e.start_date }} - {{ e.end_date|default:"Present" }}</h4>
+                </div>
+              </div>
+              <p class="text-sm text-[#8083A3] py-2">
+                  {{ e.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+        <div class="py-6">
+          <h1 class="font-bold text-lg">Education</h1>
+        </div>
+        {% for e in educations %}
+            <div class="py-6 px-3">
+          <div class="grid grid-cols-8 gap-4">
+            <div>
+              <img
+                src="{{ e.institution_avatar_url }}"
+                alt=""
+                style="height: 32px; width: 32px"
+              />
+            </div>
+            <div class="col-span-7">
+              <a href="">
+                <h1 class="text-md font-bold">{{ e.institution_name }}</h1>
+              </a>
+              <div class="flex justify-between">
+                <div>
+                  <p class="mb-3 text-sm inline">{{ e.institution_location }}</p>
+                  <p class="mb-3 text-sm inline">•</p>
+                  <p class="mb-3 text-sm inline">{{ e.degree }}</p>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm">{{ e.start_date }} - {{ e.end_date }}</h4>
+                </div>
+
+
+              </div>
+                <div>
+                  <h4 class="mb-3 text-sm inline">{{e.division}}</h4>
+                </div>
+              <p class="text-sm text-[#8083A3] py-2">
+                  {{ e.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="flex justify-center">
+        <div class="px-32 py-12">
+
+          <ul>
+            <li class="py-3 pl-3">
+              <h2 class="text-sm font-bold">{{user.email}}</h2>
+              <h3 class="text-xs text-[#8083A3]">Contact Email</h3>
+            </li>
+            <li class="py-3 pl-3">
+              <h2 class="text-sm font-bold">{{user.phone_number}}</h2>
+              <h3 class="text-xs text-[#8083A3]">Phone</h3>
+            </li>
+            <li class="py-3 pl-3">
+              <h2 class="text-sm font-bold">Information technology</h2>
+              <h3 class="text-xs text-[#8083A3]">Job Functions</h3>
+            </li>
+          </ul>
+          <p class="text-sm text-[#8083A3] py-6">
+            Full Stack Developer using Alpine and HTMX Technologies
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock body %}

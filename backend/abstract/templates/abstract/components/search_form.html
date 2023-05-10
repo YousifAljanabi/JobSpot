@@ -1,0 +1,27 @@
+{% load heroicons %}
+<form
+        action="{% url 'home:search' %}"
+        class="max-w-2xl w-full flex justify-center items-center border rounded-3xl"
+        style="background: rgb(255, 255, 255)"
+        method="post"
+      >
+        {% csrf_token %}
+        <input
+          type="text"
+          placeholder="Job title, keyword or company"
+          name="q"
+          class="outline-0 border-0 text-sm font-bold text-[#8083A3] w-full"
+          style="
+            outline: none;
+            border: 0;
+            flex: 1;
+            background: transparent;
+            padding: 18px 18px;
+          "
+        />
+        <button type="submit" class="" style="padding-left: 8px">
+          {% heroicon_outline "magnifying-glass-circle" %}
+        </button>
+
+        <h1 class="font-bold text-sm pr-10">Any Location</h1>
+      </form>

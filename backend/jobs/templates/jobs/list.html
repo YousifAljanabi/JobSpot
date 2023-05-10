@@ -1,0 +1,42 @@
+{% extends 'abstract/_base.html' %} {% load static %} {% block body %}
+<div class="flex flex-wrap justify-center px-60 py-8">
+
+
+  <div class="w-full px-72 py-6 text-center">
+    <ul class="font-bold text-xs">
+        <li class="inline px-8">
+            <a href="">
+                Date Posted
+            </a>
+        </li>
+
+      <li class="inline px-8">
+            <a href="">
+                Experience
+            </a>
+        </li>
+      <li class="inline px-8">
+            <a href="">
+                Company
+            </a>
+        </li>
+      <li class="inline px-8">
+            <a href="">
+                Job Type
+            </a>
+        </li>
+    </ul>
+  </div>
+  <div class="px-36">
+    {% include 'abstract/lists/jobs_list.html' with jobs=jobs%}
+
+  </div>
+  <ul class="inline-flex space-x-2 pt-8">
+    <li><button class="w-10 h-10 transition-colors duration-150 ">1</button></li>
+    <li><button class="w-10 h-10 text-white transition-colors duration-150 bg-[#1DA1F2] border border-r-0 border-[#1DA1F2] rounded-full focus:shadow-outline">2</button></li>
+    <li><button class="w-10 h-10 transition-colors duration-150 ">3</button></li>
+    <li><button class="w-10 h-10 transition-colors duration-150 ">4</button></li>
+    <li><button class="w-10 h-10 transition-colors duration-150 ">5</button></li>
+</ul>
+</div>
+{% endblock body %}
